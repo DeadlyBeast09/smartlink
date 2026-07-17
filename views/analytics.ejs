@@ -1,0 +1,230 @@
+<%- include('partials/header', { title: 'Analytics — shrtn' }) %>
+
+<section class="hero">
+
+  <p class="hero__eyebrow">
+    analytics
+  </p>
+
+  <h1 class="hero__title">
+    Analytics: <%= shortId %>
+  </h1>
+
+  <p class="hero__subtitle">
+    View detailed statistics for this shortened URL.
+  </p>
+
+<a
+href="/dashboard"
+class="hero__dashboard-link"
+
+>
+
+
+← Back to Dashboard
+
+
+  </a>
+
+</section>
+
+<section class="dashboard">
+
+  <div class="terminal">
+    <div class="terminal__body">
+
+
+  <h2>
+    Total Clicks:
+    <%= analytics.totalClicks %>
+  </h2>
+
+</div>
+
+
+  </div>
+
+  <br>
+
+  <div class="terminal">
+    <div class="terminal__body">
+
+
+  <h3>Daily Clicks</h3>
+
+  <% if (analytics.dailyClicks.length) { %>
+
+    <ul>
+      <% analytics.dailyClicks.forEach(day => { %>
+        <li>
+          <%= day._id %> :
+          <%= day.clicks %>
+        </li>
+      <% }) %>
+    </ul>
+
+  <% } else { %>
+
+    <p>No daily analytics available.</p>
+
+  <% } %>
+
+</div>
+
+
+  </div>
+
+  <br>
+
+  <div class="terminal">
+    <div class="terminal__body">
+
+
+  <h3>Weekly Clicks</h3>
+
+  <% if (analytics.weeklyClicks.length) { %>
+
+    <ul>
+      <% analytics.weeklyClicks.forEach(week => { %>
+        <li>
+          Week <%= week._id %> :
+          <%= week.clicks %>
+        </li>
+      <% }) %>
+    </ul>
+
+  <% } else { %>
+
+    <p>No weekly analytics available.</p>
+
+  <% } %>
+
+</div>
+
+
+  </div>
+
+  <br>
+
+  <div class="terminal">
+    <div class="terminal__body">
+
+
+  <h3>Monthly Clicks</h3>
+
+  <% if (analytics.monthlyClicks.length) { %>
+
+    <ul>
+      <% analytics.monthlyClicks.forEach(month => { %>
+        <li>
+          <%= month._id %> :
+          <%= month.clicks %>
+        </li>
+      <% }) %>
+    </ul>
+
+  <% } else { %>
+
+    <p>No monthly analytics available.</p>
+
+  <% } %>
+
+</div>
+
+
+  </div>
+
+  <br>
+
+  <div class="terminal">
+    <div class="terminal__body">
+
+
+  <h3>Browsers</h3>
+
+  <% if (analytics.browsers.length) { %>
+
+    <ul>
+      <% analytics.browsers.forEach(browser => { %>
+        <li>
+          <%= browser._id %> :
+          <%= browser.count %>
+        </li>
+      <% }) %>
+    </ul>
+
+  <% } else { %>
+
+    <p>No browser analytics available.</p>
+
+  <% } %>
+
+</div>
+
+
+  </div>
+
+  <br>
+
+  <div class="terminal">
+    <div class="terminal__body">
+
+
+  <h3>Devices</h3>
+
+  <% if (analytics.devices.length) { %>
+
+    <ul>
+      <% analytics.devices.forEach(device => { %>
+        <li>
+          <%= device._id %> :
+          <%= device.count %>
+        </li>
+      <% }) %>
+    </ul>
+
+  <% } else { %>
+
+    <p>No device analytics available.</p>
+
+  <% } %>
+
+</div>
+
+
+  </div>
+
+  <br>
+
+  <div class="terminal">
+    <div class="terminal__body">
+
+
+  <h3>Referrers</h3>
+
+  <% if (analytics.referrers.length) { %>
+
+    <ul>
+      <% analytics.referrers.forEach(referrer => { %>
+        <li>
+          <%= referrer._id %> :
+          <%= referrer.count %>
+        </li>
+      <% }) %>
+    </ul>
+
+  <% } else { %>
+
+    <p>No referrer analytics available.</p>
+
+  <% } %>
+
+</div>
+
+
+  </div>
+
+</section>
+
+<%- include('partials/footer') %>
+

@@ -1,0 +1,129 @@
+<%- include('partials/header', { title: 'Dashboard — shrtn' }) %>
+
+<section class="hero">
+  <p class="hero__eyebrow">user dashboard</p>
+
+  <h1 class="hero__title">
+    Manage your shortened URLs
+  </h1>
+
+  <p class="hero__subtitle">
+    Every URL shown here belongs to your account.
+    Click counts update automatically whenever someone
+    uses one of your short links.
+  </p>
+
+  <a href="/" class="hero__dashboard-link">
+    ← Create New URL
+  </a>
+</section>
+
+<section class="dashboard">
+
+<% if (!urls.length) { %>
+
+
+<div class="terminal">
+  <div class="terminal__body">
+    No URLs found.
+    Create your first short URL to get started.
+  </div>
+</div>
+
+
+<% } %>
+
+<% if (urls.length) { %>
+
+
+<table class="dashboard-table">
+
+  <thead>
+    <tr>
+      <th>Short URL</th>
+      <th>Original URL</th>
+      <th>Clicks</th>
+      <th>Created</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% urls.forEach(url => { %>
+
+      <tr>
+
+        <td>
+          <a
+            href="/<%= url.shortId %>"
+            target="_blank"
+          >
+            <%= url.shortId %>
+          </a>
+        </td>
+
+        <td>
+          <%= url.originalUrl %>
+        </td>
+
+        <td>
+          <%= url.clicks %>
+        </td>
+
+        <td>
+          <%= url.createdAt.toLocaleDateString() %>
+        </td>
+
+        <td>
+          <a href="/analytics/<%= url.shortId %>" > 
+            Analytics 
+          </a> 
+          &nbsp;|&nbsp;
+
+          <a
+            href="/urls/<%= url.shortId %>/edit"
+          >
+            Edit
+          </a>
+
+          &nbsp;|&nbsp;
+
+          <form
+            action="/urls/<%= url.shortId %>/delete"
+            method="POST"
+            style="display:inline;"
+          >
+            <button
+              type="submit"
+              style="
+                background:none;
+                border:none;
+                color:inherit;
+                cursor:pointer;
+                text-decoration:underline;
+                font:inherit;
+                padding:0;
+              "
+              onclick="return confirm('Delete this URL?')"
+            >
+              Delete
+            </button>
+          </form>
+
+        </td>
+
+      </tr>
+
+    <% }) %>
+
+  </tbody>
+
+</table>
+
+
+<% } %>
+
+</section>
+
+<%- include('partials/footer') %>

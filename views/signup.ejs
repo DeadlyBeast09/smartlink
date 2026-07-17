@@ -1,0 +1,81 @@
+<%- include('partials/header', { title: 'shrtn — signup' }) %>
+
+<section class="auth-page">
+
+  <div class="auth-card">
+
+    <div class="auth-card__bar">
+      <span class="auth-card__dot auth-card__dot--red"></span>
+      <span class="auth-card__dot auth-card__dot--yellow"></span>
+      <span class="auth-card__dot auth-card__dot--green"></span>
+
+      <span class="auth-card__label">
+        authentication.signup
+      </span>
+    </div>
+
+    <div class="auth-card__body">
+
+      <p class="auth-card__eyebrow">
+         authentication
+      </p>
+
+      <h1 class="auth-card__title">
+        Create Account
+      </h1>
+
+      <p class="auth-card__subtitle">
+        Create your account to start managing and tracking your short URLs.
+      </p>
+
+      <form
+        action="/signup"
+        method="POST"
+        class="auth-form"
+      >
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          required
+          class="auth-form__input"
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="email@example.com"
+          required
+          class="auth-form__input"
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Choose a password"
+          required
+          class="auth-form__input"
+        />
+
+        <button
+          type="submit"
+          class="auth-form__button"
+        >
+          Create Account
+        </button>
+
+      </form>
+
+      <div class="auth-card__footer">
+        Already have an account?
+        <a href="/login">Login</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<%- include('partials/footer') %>

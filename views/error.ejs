@@ -1,0 +1,9 @@
+<%- include('partials/header', { title: 'shrtn — error' }) %>
+
+  <section class="error-page">
+    <p class="error-page__code"><%= statusCode %></p>
+    <h1 class="error-page__message"><%= message %></h1>
+    <a href="/" class="error-page__link"> ← Back to shrtn</a>
+  </section>
+
+<%- include('partials/footer') %>

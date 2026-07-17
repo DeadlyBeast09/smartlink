@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title : 'Shrtn — URL Management Platform' %></title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="noise-overlay"></div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+
+      <a href="/" class="brand">
+        <span class="brand__bracket">&lt;</span>shrtn<span class="brand__bracket">/&gt;</span>
+      </a>
+
+      <nav class="site-nav">
+        <a href="/" class="site-nav__link">Shorten</a>
+        
+        <% if (user) { %>
+    <a href="/logout" class="site-nav__link">Logout</a>
+  <% } %>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="container">

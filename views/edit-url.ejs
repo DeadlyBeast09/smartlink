@@ -1,0 +1,79 @@
+<%- include('partials/header', { title: 'Edit URL — shrtn' }) %>
+
+<section class="hero">
+
+  <p class="hero__eyebrow">
+    url management
+  </p>
+
+  <h1 class="hero__title">
+    Update your destination URL
+  </h1>
+
+  <p class="hero__subtitle">
+    Keep the same short link while changing where it redirects.
+  </p>
+
+  <form
+    class="shorten-form"
+    method="POST"
+    action="/urls/<%= url.shortId %>/edit"
+  >
+
+
+<input
+  type="url"
+  name="originalUrl"
+  class="shorten-form__input"
+  value="<%= url.originalUrl %>"
+  required
+/>
+
+<button
+  type="submit"
+  class="shorten-form__submit"
+>
+  Save Changes
+</button>
+
+
+  </form>
+
+  <div class="terminal">
+
+
+<div class="terminal__bar">
+  <span class="terminal__dot terminal__dot--red"></span>
+  <span class="terminal__dot terminal__dot--yellow"></span>
+  <span class="terminal__dot terminal__dot--green"></span>
+  <span class="terminal__bar-label">
+    current-short-link
+  </span>
+</div>
+
+<div class="terminal__body">
+  <span class="terminal__prompt">$</span>
+  <span class="terminal__output">
+    <%=url.shortId %>
+  </span>
+  <span class="terminal__cursor">▌</span>
+</div>
+
+
+  </div>
+
+<a
+href="/dashboard"
+class="hero__dashboard-link"
+
+>
+
+
+← Back to Dashboard
+
+
+  </a>
+
+</section>
+
+<%- include('partials/footer') %>

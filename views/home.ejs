@@ -1,0 +1,75 @@
+<%- include('partials/header', { title: 'shrtn — shorten a URL' }) %>
+
+  <section class="hero">
+     
+
+    <p class="hero__eyebrow"> core shortener</p>
+    <h1 class="hero__title">Transform long URLs <br/> into clean, compact links.</h1>
+    <p class="hero__subtitle">
+      Paste a link below. We'll generate a short, collision-checked ID
+      and start tracking every redirect through it.
+    </p>
+
+    <form class="shorten-form" action="/api/shorten" method="POST">
+      <input
+        type="url"
+        name="originalUrl"
+        class="shorten-form__input"
+        placeholder="https://example.com/a/very/long/path?with=params"
+        required
+      />
+      <button type="submit" class="shorten-form__submit">Shorten</button>
+     <a href="/dashboard" class="shorten-form__submit">
+  View Dashboard
+</a>
+    </form>
+
+    <% if (error) { %>
+      <p class="form-error">⨯ <%= error %></p>
+    <% } %>
+
+    <% if (shortUrl) { %>
+      <div class="terminal" id="terminal">
+        <div class="terminal__bar">
+          <span class="terminal__dot terminal__dot--red"></span>
+          <span class="terminal__dot terminal__dot--yellow"></span>
+          <span class="terminal__dot terminal__dot--green"></span>
+          <span class="terminal__bar-label">your-short-link</span>
+        </div>
+        <div class="terminal__body">
+          <span class="terminal__prompt">$</span>
+          <span class="terminal__output" id="shortUrlText"><%= shortUrl %></span>
+          <span class="terminal__cursor">▌</span>
+        </div>
+        <button class="terminal__copy" id="copyBtn" data-url="<%= shortUrl %>">Copy</button>
+      </div>
+    <% } %>
+  </section>
+
+ <section class="how-it-works">
+  <h2 class="how-it-works__title">Why use SmartLink?</h2>
+
+  <ol class="flow-list">
+    <li>
+      <span class="flow-list__index">01</span>
+      Turn long, messy URLs into clean, shareable links in seconds.
+    </li>
+
+    <li>
+      <span class="flow-list__index">02</span>
+      Every shortened link is unique and ready to share anywhere.
+    </li>
+
+    <li>
+      <span class="flow-list__index">03</span>
+      Access your links anytime from your personal dashboard.
+    </li>
+
+    <li>
+      <span class="flow-list__index">04</span>
+      Track how many times each link has been visited.
+    </li>
+  </ol>
+</section>
+
+<%- include('partials/footer') %>
