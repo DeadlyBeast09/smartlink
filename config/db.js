@@ -1,19 +1,9 @@
-
 import mongoose from "mongoose";
-/**
- * Establishes a single shared connection to MongoDB.
- *
- * Why this lives in config/ and not app.js:
- * - Keeps connection logic (and future options like connection pooling,
- *   retry strategy) in one place, separate from server bootstrapping.
- * - Makes it trivial to swap the connection target in tests (see tests/).
- */
+import { config } from "./index.js";
+
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      // Mongoose 8+ no longer needs useNewUrlParser/useUnifiedTopology,
-      // they are defaults now — kept out intentionally to avoid deprecation noise.
-    });
+    const conn = await mongoose.connect(config.mongoUri);
 
     console.log(`[DB] MongoDB connected: ${conn.connection.host}`);
 
@@ -26,7 +16,6 @@ const connectDB = async () => {
     });
   } catch (err) {
     console.error(`[DB] Initial connection failed: ${err.message}`);
-    // Fail fast: a backend with no DB should not pretend to be healthy.
     process.exit(1);
   }
 };
