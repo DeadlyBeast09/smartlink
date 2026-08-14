@@ -243,6 +243,7 @@ n) lookups and the atomic `$inc` avoiding any extra round trip for click trackin
 real-world latency depends on network, MongoDB deployment, and concurrent load.)*
 
 ## Project structure
+```
 smartlink/
 ├── app.js
 ├── package.json
@@ -295,7 +296,7 @@ smartlink/
 ├── home.ejs
 ├── login.ejs
 └── signup.ejs
-
+```
 ## Routes
 
 | Method | Path | Handler | Auth required |
