@@ -1,53 +1,62 @@
 # 02 — Folder Structure & MVC Architecture
 
-## Current structure (Phase 1)
+## Current structure
 
 ```
-url-shortener/
+smartlink/
+├── app.js
+├── package.json
+├── README.md
 ├── config/
-│   ├── index.js          # centralized env var loading + validation
-│   └── db.js              # MongoDB connection logic
+│   ├── index.js
+│   └── db.js
 ├── controllers/
-│   |── urlController.js   # HTTP layer: req/res only
-│   └── authController.js   # HTTP layer: req/res only
-|
-|__ docs/
-|
+│   ├── analyticsController.js
+│   ├── authController.js
+│   └── urlController.js
+├── docs/
+│   ├── 01-project-overview.md
+│   ├── 02-folder-structure.md    # you are here
+│   └── 09-api-documentation.md
 ├── middlewares/
-│   ├── errorHandler.js    # centralized error → response translation
-│   |── notFound.js        # catch-all 404 → AppError
-│   └── authMiddleware.js        # catch-all 404 → AppError
+│   ├── authMiddleware.js
+│   ├── errorHandler.js
+│   └── notFound.js
 ├── models/
-│   |── Url.js              # Mongoose schema for the Url collection
-│   └── User.js              # Mongoose schema for the Url collection
-├── routes/
-│   |__ urlRoutes.js        # path + verb → controller mapping
-│   └── authRoutes.js        # path + verb → controller mapping
-├── services/
-│   |── urlService.js       # business logic, DB calls, collision handling
-│   └── authService.js       # business logic, DB calls, collision handling
-├── utils/
-│   ├── AppError.js         # custom error class with HTTP status codes
-│   ├── generateShortId.js  # short ID generation strategy
-│   └── isValidUrl.js       # URL validation
-├── views/
-│   ├── partials/
-│   │   ├── header.ejs
-│   │   └── footer.ejs
-│   ├── home.ejs
-│   |── error.ejs
-│   ├── login.ejs
-│   |── signup.ejs
-│   |── dashboard.ejs
-│   └── edit-url.ejs
+│   ├── Analytics.js
+│   ├── Url.js
+│   └── User.js
 ├── public/
-│   ├── css/style.css
-│   └── js/main.js
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── main.js
+│   └── images/
+├── routes/
+│   ├── analyticsRoutes.js
+│   ├── authRoutes.js
+│   └── urlRoutes.js
+├── services/
+│   ├── analyticsService.js
+│   ├── authService.js
+│   └── urlService.js
 ├── tests/
 │   └── url.service.test.js
-├── docs/                    # you are here
-├── app.js                   # Express app wiring + boot sequence
-└── package.json
+├── utils/
+│   ├── AppError.js
+│   ├── generateShortId.js
+│   └── isValidUrl.js
+└── views/
+    ├── partials/
+    │   ├── header.ejs
+    │   └── footer.ejs
+    ├── analytics.ejs
+    ├── dashboard.ejs
+    ├── edit-url.ejs
+    ├── error.ejs
+    ├── home.ejs
+    ├── login.ejs
+    └── signup.ejs
 ```
 
 `controllers/`, `middlewares/`, `models/`, `routes/`, `services/`, `utils/`
