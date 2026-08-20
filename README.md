@@ -171,22 +171,31 @@ throw new AppError("Could not generate a unique short URL, please try again", 50
 ```
 
 ## Click tracking & analytics
-
-Every redirect is tracked atomically — `Url.findOneAndUpdate({ shortId }, { $inc: {
-clicks: 1 } })` increments the counter and records the click in one indexed
-operation, avoiding the race condition inherent in a separate `find()` → mutate →
-`save()` sequence under concurrent traffic.
+Every redirect atomically increments the click counter using Url.findOneAndUpdate({ shortId }, { $inc: { clicks: 1 } }), preventing lost updates under concurrent traffic. Detailed click analytics are then recorded separately via recordClick()
 
 ```mermaid
 flowchart TD
-    A["GET /:shortId"] --> B[urlController.redirectToOriginalUrl]
-    B --> C[Parse User-Agent via ua-parser-js]
-    C --> D["urlService.getUrlAndTrackClick(shortId)"]
-    D --> E["Url.findOneAndUpdate\n($inc clicks: 1) — atomic"]
-    E -->|not found| F[404 AppError]
-    E -->|found| G[analyticsService.recordClick]
-    G --> H["Analytics.create\n(browser, device, referrer)"]
-    H --> I[302 redirect to originalUrl]
+    A["GET /:shortId"] --> B["urlController.redirectToOriginalUrl"]
+
+    B --> C["Extract shortId + User-Agent + Referrer"]
+
+    C --> D["Parse User-Agent<br/>ua-parser-js"]
+
+    D --> E["urlService.getUrlAndTrackClick(shortId, analyticsData)"]
+
+    E --> F["Url.findOneAndUpdate()<br/>{ shortId }<br/>$inc: { clicks: 1 }<br/>Atomic counter update"]
+
+    F -->|Not found| G["Throw AppError<br/>404 Short URL not found"]
+
+    F -->|Found| H["analyticsService.recordClick()"]
+
+    H --> I["Analytics.create()<br/>browser, device, referrer, timestamp"]
+
+    I --> J["Return URL document"]
+
+    J --> K["302 Redirect<br/>Location: originalUrl"]
+
+    K --> L["User reaches original URL"]
 ```
 
 `getAnalyticsSummary(shortId)` then computes, entirely via MongoDB Aggregation
